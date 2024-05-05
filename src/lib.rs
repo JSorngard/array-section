@@ -22,7 +22,7 @@
 //!
 //! # Features
 //! `std`: derives the [`Error`](std::error::Error) trait for the [`TryFromArraySectionError`] type.  
-//! `alloc`: enables conversion into the [`Vec`] type.
+//! `alloc`: enables conversion of the section into [`Vec`]s and [`Box`]ed slices.
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
