@@ -30,7 +30,7 @@ assert_eq!(squares_smaller_than::<10>(16), [0, 1, 4, 9]);
 Licensed under either of
 
  * Apache License, Version 2.0
-   [LICENSE-APACHE](LICENSE-APACHE
+   [LICENSE-APACHE](LICENSE-APACHE)
  * MIT license
    [LICENSE-MIT](LICENSE-MIT)
 
