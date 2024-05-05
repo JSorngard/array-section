@@ -1,4 +1,22 @@
-//! Contains the definition of [`ArraySection`] as well as related types.
+//! An [`ArraySection`] is an array where only a (contiguous) subsection of its data may be viewed.
+//!
+//! This can be useful in const functions that wish to return an array of size `N`,
+//! but with some elements potentially unused.
+//!
+//! ```
+//! use array_section::ArraySection;
+//! /// Returns an array of the numbers smaller than both x and N.
+//! const fn smaller_than<const N: usize>(x: u8) -> ArraySection<u8, N> {
+//!     let mut i = 0;
+//!     let mut ans = [0; N];
+//!     while i < N && i < x as usize {
+//!         ans[i] = i as u8;
+//!         i += 1;
+//!     }
+//!     ArraySection::new(ans, 0..i)
+//! }
+//! assert_eq!(smaller_than::<10>(3), [0, 1, 2]);
+//! ```
 
 use core::{
     cmp::Ordering,
