@@ -5,7 +5,7 @@ license = "MIT OR Apache-2.0"
 version = "0.1.1"
 edition = "2021"
 keyowrds = ["array", "const", "subarray"]
-description = "An array where only a (contiguous) sub array may be viwed or operated on"
+description = "An array where only a (contiguous) subarray may be viwed or operated on"
 repository = "https://github.com/JSorngard/array-section"
 
 [dependencies]
