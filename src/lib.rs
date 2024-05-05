@@ -5,17 +5,17 @@
 //!
 //! ```
 //! # use array_section::ArraySection;
-//! /// Returns an array of the numbers smaller than both x and N.
+//! /// Returns an array of the prime numbers smaller than both x and N.
 //! const fn smaller_than<const N: usize>(x: usize) -> ArraySection<usize, N> {
 //!     let mut i = 0;
 //!     let mut ans = [0; N];
-//!     while i < N && i < x {
-//!         ans[i] = i;
+//!     while i * i < N && i * i < x {
+//!         ans[i] = i * i;
 //!         i += 1;
 //!     }
 //!     ArraySection::new(ans, 0..i)
 //! }
-//! assert_eq!(smaller_than::<10>(3), [0, 1, 2]);
+//! assert_eq!(smaller_than::<10>(16), [0, 1, 4, 9]);
 //! ```
 
 use core::{
