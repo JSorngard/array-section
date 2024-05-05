@@ -3,6 +3,8 @@
 //! This can be useful in const functions that wish to return an array of size `N`,
 //! but with some elements potentially unused.
 //!
+//! `#![no_std]` compatible
+//!
 //! ```
 //! # use array_section::ArraySection;
 //! /// Returns an array of the square numbers smaller than both x and N.
@@ -17,6 +19,12 @@
 //! }
 //! assert_eq!(squares_smaller_than::<10>(16), [0, 1, 4, 9]);
 //! ```
+//!
+//! # Features
+//! `std`: derives the [`Error`](std::error::Error) trait for the [`TryFromArraySectionError`] type.  
+//! `alloc`: enables conversion into the [`Vec`] type.
+
+#![cfg_attr(not(feature = "std"), no_std)]
 
 use core::{
     cmp::Ordering,
@@ -25,6 +33,11 @@ use core::{
     ops::{Index, Range},
     slice::SliceIndex,
 };
+
+#[cfg(all(feature = "alloc", not(feature = "std")))]
+extern crate alloc;
+#[cfg(all(feature = "alloc", not(feature = "std")))]
+use alloc::{boxed::Box, vec::Vec};
 
 /// An array where only a section of the data may be viewed,
 /// as the other data may e.g. not uphold some invariant.
@@ -190,6 +203,23 @@ impl<const N: usize, T> ArraySection<T, N> {
     #[inline]
     pub fn iter(&self) -> ArraySectionIter<'_, T> {
         ArraySectionIter::new(self.as_slice().iter())
+    }
+}
+
+#[cfg(any(feature = "alloc", feature = "std"))]
+impl<T: Clone, const N: usize> From<ArraySection<T, N>> for Vec<T> {
+    /// Clones the contents of the section into a [`Vec`].
+    #[inline]
+    fn from(value: ArraySection<T, N>) -> Vec<T> {
+        value.as_slice().into()
+    }
+}
+#[cfg(any(feature = "alloc", feature = "std"))]
+impl<T: Clone, const N: usize> From<ArraySection<T, N>> for Box<[T]> {
+    /// Clones the contents of the section into a [`Box`]ed slice.
+    #[inline]
+    fn from(value: ArraySection<T, N>) -> Box<[T]> {
+        value.as_slice().into()
     }
 }
 
