@@ -6,11 +6,11 @@
 //! ```
 //! # use array_section::ArraySection;
 //! /// Returns an array of the numbers smaller than both x and N.
-//! const fn smaller_than<const N: usize>(x: u8) -> ArraySection<u8, N> {
+//! const fn smaller_than<const N: usize>(x: usize) -> ArraySection<usize, N> {
 //!     let mut i = 0;
 //!     let mut ans = [0; N];
-//!     while i < N && i < x as usize {
-//!         ans[i] = i as u8;
+//!     while i < N && i < x {
+//!         ans[i] = i;
 //!         i += 1;
 //!     }
 //!     ArraySection::new(ans, 0..i)
