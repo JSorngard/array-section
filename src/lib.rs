@@ -4,7 +4,7 @@
 //! but with some elements potentially unused.
 //!
 //! ```
-//! use array_section::ArraySection;
+//! # use array_section::ArraySection;
 //! /// Returns an array of the numbers smaller than both x and N.
 //! const fn smaller_than<const N: usize>(x: u8) -> ArraySection<u8, N> {
 //!     let mut i = 0;
