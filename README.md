@@ -24,3 +24,20 @@ assert_eq!(squares_smaller_than::<10>(16), [0, 1, 4, 9]);
 ## Features
 `std`: derives the `Error` trait for the error types.  
 `alloc`: enables conversion of the array section into `Vec`s and `Box`ed slices.
+
+## License
+
+Licensed under either of
+
+ * Apache License, Version 2.0
+   [LICENSE-APACHE](LICENSE-APACHE)
+ * MIT license
+   [LICENSE-MIT](LICENSE-MIT)
+
+at your option.
+
+## Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
