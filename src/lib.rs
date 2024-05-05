@@ -5,8 +5,8 @@
 //!
 //! ```
 //! # use array_section::ArraySection;
-//! /// Returns an array of the prime numbers smaller than both x and N.
-//! const fn smaller_than<const N: usize>(x: usize) -> ArraySection<usize, N> {
+//! /// Returns an array of the square numbers smaller than both x and N.
+//! const fn squares_smaller_than<const N: usize>(x: usize) -> ArraySection<usize, N> {
 //!     let mut i = 0;
 //!     let mut ans = [0; N];
 //!     while i * i < N && i * i < x {
@@ -15,7 +15,7 @@
 //!     }
 //!     ArraySection::new(ans, 0..i)
 //! }
-//! assert_eq!(smaller_than::<10>(16), [0, 1, 4, 9]);
+//! assert_eq!(squares_smaller_than::<10>(16), [0, 1, 4, 9]);
 //! ```
 
 use core::{
