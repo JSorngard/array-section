@@ -1,6 +1,6 @@
 # array-section
 
-When you want to return a buffer of unknown size (but smaller than some limit). 
+When you want to return a buffer of unknown size (but smaller than some limit) from a const context. 
 This crate defines a type backed by an array where only a (contiguous) subsection of the array may be viewed.
 
 This can be useful in const functions that wish to return an array of size `N`,
