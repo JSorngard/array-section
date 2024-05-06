@@ -140,6 +140,23 @@ impl<const N: usize, T> ArraySection<T, N> {
         self.end
     }
 
+    /// Changes the section of the array to the given one.
+    /// 
+    /// # Panics
+    ///
+    /// Panics if the start and/or end of the given section is out of bounds of the array.
+    #[inline]
+    pub fn change_section(&mut self, section: Range<usize>) {
+        assert!(section.start < N && section.end <= N, "the section must be in bounds");
+        if section.start > section.end {
+            self.start = 0;
+            self.end = 0;
+        } else {
+            self.start = section.start;
+            self.end = section.end;
+        }
+    }
+
     /// Returns a reference to the full underlying array if it is fully populated.
     #[inline]
     pub const fn try_as_full_array(&self) -> Option<&[T; N]> {
