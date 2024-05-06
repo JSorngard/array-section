@@ -150,10 +150,40 @@ impl<const N: usize, T> ArraySection<T, N> {
         }
     }
 
+    /// Returns a mutable reference to the full underlying array if it is fully populated.
+    #[inline]
+    pub fn try_as_full_array_mut(&mut self) -> Option<&mut [T; N]> {
+        self.section_is_full_array().then_some(&mut self.array)
+    }
+
     /// Returns a reference to the full underlying array.
     #[inline]
     pub const fn as_full_array(&self) -> &[T; N] {
         &self.array
+    }
+
+    /// Returns a mutable reference to the full underlying array.
+    #[inline]
+    pub fn as_full_array_mut(&mut self) -> &mut [T; N] {
+        &mut self.array
+    }
+
+    /// Splits the underlying array into three slices: the part before the section,
+    /// the section, and the part after the section.
+    #[inline]
+    pub const fn split_at_section(&self) -> (&[T], &[T], &[T]) {
+        let (head, rest) = self.array.split_at(self.start);
+        let (section, tail) = rest.split_at(self.end - self.start);
+        (head, section, tail)
+    }
+
+    /// Splits the underlying array into three mutable slices: the part before the section,
+    /// the section, and the part after the seciton.
+    #[inline]
+    pub fn split_at_section_mut(&mut self) -> (&mut [T], &mut [T], &mut [T]) {
+        let (head, rest) = self.array.split_at_mut(self.start);
+        let (section, tail) = rest.split_at_mut(self.end - self.start);
+        (head, section, tail)
     }
 
     /// Converts `self` into the full underlying array.
@@ -168,15 +198,13 @@ impl<const N: usize, T> ArraySection<T, N> {
     /// Returns the section of the array as a slice.
     #[inline]
     pub const fn as_slice(&self) -> &[T] {
-        self.array
-            // Split &[head, section, tail] into (&[head], &[section, tail])
-            .split_at(self.start)
-            // and extract the second element of the tuple.
-            .1
-            // Split &[section, tail] into (&[section], &[tail])
-            .split_at(self.end - self.start)
-            // and extract the first element of the tuple.
-            .0
+        self.split_at_section().1
+    }
+
+    /// Returns the section of the array as a mutable slice.
+    #[inline]
+    pub fn as_slice_mut(&mut self) -> &mut [T] {
+        self.split_at_section_mut().1
     }
 
     /// Returns the length of the array section.
