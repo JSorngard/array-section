@@ -4,7 +4,8 @@ authors = ["Johanna Sörngård (jsorngard@gmail.com)"]
 license = "MIT OR Apache-2.0"
 version = "0.1.1"
 edition = "2021"
-keyowrds = ["array", "const", "subarray"]
+keywords = ["array", "const", "subarray"]
+categories = ["no-std::no-alloc"]
 description = "An array where only a (contiguous) subarray may be viwed or operated on"
 repository = "https://github.com/JSorngard/array-section"
 
