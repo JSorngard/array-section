@@ -20,11 +20,14 @@
 //! assert_eq!(squares_smaller_than::<10>(16), [0, 1, 4, 9]);
 //! ```
 //!
-//! # Features
-//! `std`: derives the [`Error`](std::error::Error) trait for the [`TryFromArraySectionError`] type.  
+//! # Feature flags
+//! 
+//! `std`: derives the [`Error`](std::error::Error) trait from the standard library for the [`TryFromArraySectionError`] type.
+//! 
 //! `alloc`: enables conversion of the section into [`Vec`]s and [`Box`]ed slices.
 
 #![cfg_attr(not(feature = "std"), no_std)]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 
 use core::{
     cmp::Ordering,
@@ -42,7 +45,7 @@ use alloc::{boxed::Box, vec::Vec};
 /// An array where only a section of the data may be viewed,
 /// as the other data may e.g. not uphold some invariant.
 ///
-/// Indexing into the `ArraySection` indices only into the section:
+/// Indexing into the `ArraySection` indexes only into the section:
 /// ```
 /// # use array_section::ArraySection;
 /// //                                                     v  v

@@ -21,18 +21,18 @@ const fn squares_smaller_than<const N: usize>(x: usize) -> ArraySection<usize, N
 assert_eq!(squares_smaller_than::<10>(16), [0, 1, 4, 9]);
 ```
 
-## Features
-`std`: derives the `Error` trait for the error types.  
+## Feature flags
+
+`std`: derives the `Error` trait from the standard library for the error types.
+
 `alloc`: enables conversion of the array section into `Vec`s and `Box`ed slices.
 
 ## License
 
 Licensed under either of
 
- * Apache License, Version 2.0
-   [LICENSE-APACHE](LICENSE-APACHE)
- * MIT license
-   [LICENSE-MIT](LICENSE-MIT)
+ * Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)  
+ * MIT license ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
 
 at your option.
 

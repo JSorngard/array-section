@@ -4,17 +4,22 @@ authors = ["Johanna Sörngård (jsorngard@gmail.com)"]
 license = "MIT OR Apache-2.0"
 version = "0.1.1"
 edition = "2021"
-keyowrds = ["array", "const", "subarray"]
+keywords = ["array", "const", "subarray"]
 description = "An array where only a (contiguous) subarray may be viwed or operated on"
 repository = "https://github.com/JSorngard/array-section"
 
 [dependencies]
 
 [features]
+
+# Derives the `Error` trait from the standard library for the error types.
 std = ["alloc"]
+# Enables conversion of the array section into `Vec`s and `Box`ed slices.
 alloc = []
 
 # docs.rs-specific configuration
 [package.metadata.docs.rs]
 # document all features
 all-features = true
+# enable the docsrs configuration attribute on docs.rs
+rustdoc-args = ["--cfg", "docsrs"]
