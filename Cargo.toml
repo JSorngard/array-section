@@ -14,7 +14,7 @@ repository = "https://github.com/JSorngard/array-section"
 [features]
 # Derives the [`Error`](https://doc.rust-lang.org/std/error/trait.Error.html) trait from the standard library for the error types.
 std = ["alloc"]
-# Enables conversion of the array section into `Vec`s and `Box`ed slices.
+# Enables conversion of the array section into [`Vec`](https://doc.rust-lang.org/std/vec/struct.Vec.html)s and [`Box`](https://doc.rust-lang.org/std/boxed/struct.Box.html)ed slices.
 alloc = []
 
 # docs.rs-specific configuration
