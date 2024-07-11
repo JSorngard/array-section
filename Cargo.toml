@@ -5,7 +5,7 @@ license = "MIT OR Apache-2.0"
 version = "0.1.6"
 edition = "2021"
 keywords = ["array", "const", "subarray"]
-categories = ["no-std::no-alloc"]
+categories = ["no-std", "no-std::no-alloc"]
 description = "An array where only a (contiguous) subarray may be viewed or operated on"
 repository = "https://github.com/JSorngard/array-section"
 
