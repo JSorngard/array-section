@@ -350,7 +350,7 @@ impl<const N: usize, T, I: SliceIndex<[T]>> Index<I> for ArraySection<T, N> {
     type Output = I::Output;
     #[inline]
     fn index(&self, index: I) -> &Self::Output {
-        &self.as_slice().index(index)
+        self.as_slice().index(index)
     }
 }
 
