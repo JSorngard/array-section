@@ -276,6 +276,7 @@ impl<T: Clone, const N: usize> From<ArraySection<T, N>> for Box<[T]> {
 
 impl<T: Copy, const N: usize> ArraySection<T, N> {
     /// Converts `self` into the full underlying array.
+    #[inline]
     pub const fn into_full_array_const(self) -> [T; N] {
         self.array
     }
@@ -291,6 +292,7 @@ pub struct TryFromArraySectionError<T, const N: usize>(ArraySection<T, N>);
 
 impl<T, const N: usize> TryFromArraySectionError<T, N> {
     /// Returns the original [`ArraySection`].
+    #[inline]
     pub fn array_section(self) -> ArraySection<T, N> {
         self.0
     }
@@ -307,6 +309,7 @@ impl<T, const N: usize> core::fmt::Display for TryFromArraySectionError<T, N> {
 impl<T: core::fmt::Debug, const N: usize> std::error::Error for TryFromArraySectionError<T, N> {}
 
 impl<T, const N: usize> From<TryFromArraySectionError<T, N>> for ArraySection<T, N> {
+    #[inline]
     fn from(value: TryFromArraySectionError<T, N>) -> Self {
         value.0
     }
@@ -434,6 +437,7 @@ mod array_section_iter {
 
     /// Created by the [`iter`](super::ArraySection::iter) function on [`ArraySection`](super::ArraySection), see it for more information.
     #[derive(Debug, Clone)]
+    #[must_use = "iterators are lazy and do nothing unless consumed"]
     pub struct ArraySectionIter<'a, T>(core::slice::Iter<'a, T>);
 
     impl<'a, T> ArraySectionIter<'a, T> {
@@ -494,6 +498,7 @@ mod array_section_into_iter {
 
     #[derive(Debug, Clone)]
     /// Created by the [`into_iter`](super::ArraySection::into_iter) function on [`ArraySection`](super::ArraySection), see it for more information.
+    #[must_use = "iterators are lazy and do nothing unless consumed"]
     pub struct ArraySectionIntoIter<T, const N: usize>(
         core::iter::Take<core::iter::Skip<core::array::IntoIter<T, N>>>,
     );
