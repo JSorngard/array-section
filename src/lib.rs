@@ -444,31 +444,38 @@ mod array_section_iter {
 
     impl<'a, T> Iterator for ArraySectionIter<'a, T> {
         type Item = &'a T;
+        #[inline]
         fn next(&mut self) -> Option<Self::Item> {
             self.0.next()
         }
 
+        #[inline]
         fn size_hint(&self) -> (usize, Option<usize>) {
             self.0.size_hint()
         }
 
+        #[inline]
         fn last(self) -> Option<Self::Item> {
             self.0.last()
         }
 
+        #[inline]
         fn nth(&mut self, n: usize) -> Option<Self::Item> {
             self.0.nth(n)
         }
 
+        #[inline]
         fn count(self) -> usize {
             self.0.count()
         }
     }
     impl<'a, T> DoubleEndedIterator for ArraySectionIter<'a, T> {
+        #[inline]
         fn next_back(&mut self) -> Option<Self::Item> {
             self.0.next_back()
         }
 
+        #[inline]
         fn nth_back(&mut self, n: usize) -> Option<Self::Item> {
             self.0.nth_back(n)
         }
@@ -533,6 +540,11 @@ mod array_section_into_iter {
         #[inline]
         fn next_back(&mut self) -> Option<Self::Item> {
             self.0.next_back()
+        }
+
+        #[inline]
+        fn nth_back(&mut self, n: usize) -> Option<Self::Item> {
+            self.0.nth_back(n)
         }
     }
 }
