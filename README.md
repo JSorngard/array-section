@@ -1,7 +1,7 @@
-# array-section
-
 [![Crates.io Version](https://img.shields.io/crates/v/array_section)](https://crates.io/crates/array-section)
 [![docs.rs](https://img.shields.io/docsrs/array-section?logo=docs.rs)](https://docs.rs/array-section/latest/array_section/)
+
+# array-section
 
 When you want to return a buffer of unknown size (but smaller than some limit) from/in a const context. 
 This crate defines a type backed by an array where only a (contiguous) subsection of the array may be viewed.
