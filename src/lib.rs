@@ -468,6 +468,10 @@ mod array_section_iter {
         fn next_back(&mut self) -> Option<Self::Item> {
             self.0.next_back()
         }
+
+        fn nth_back(&mut self, n: usize) -> Option<Self::Item> {
+            self.0.nth_back(n)
+        }
     }
     impl<'a, T> ExactSizeIterator for ArraySectionIter<'a, T> {
         fn len(&self) -> usize {
