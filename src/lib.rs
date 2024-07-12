@@ -268,6 +268,7 @@ impl<const N: usize, T> ArraySection<T, N> {
     ///
     /// assert_eq!(section.into_vec(), vec![1, 2, 3]);
     /// ```
+    #[inline]
     pub fn into_vec(self) -> Vec<T> {
         self.into_iter().collect()
     }
@@ -287,6 +288,7 @@ impl<const N: usize, T> ArraySection<T, N> {
     ///     Box::new([1, 2, 3]) as Box<[i32]>
     /// );
     /// ```
+    #[inline]
     pub fn into_boxed_slice(self) -> Box<[T]> {
         self.into_vec().into_boxed_slice()
     }
@@ -295,12 +297,14 @@ impl<const N: usize, T> ArraySection<T, N> {
 impl<T: Clone, const N: usize> ArraySection<T, N> {
     #[cfg(feature = "alloc")]
     /// Clones the contents of the array section into a vector.
+    #[inline]
     pub fn to_vec(&self) -> Vec<T> {
         self.as_slice().to_vec()
     }
 
     #[cfg(feature = "alloc")]
     /// Clones the contents of the array section into a boxed slice.
+    #[inline]
     pub fn to_boxed_slice(&self) -> Box<[T]> {
         self.as_slice().into()
     }
