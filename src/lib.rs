@@ -294,11 +294,13 @@ impl<const N: usize, T> ArraySection<T, N> {
 
 impl<T: Clone, const N: usize> ArraySection<T, N> {
     #[cfg(feature = "alloc")]
+    /// Clones the contents of the array section into a vector.
     pub fn to_vec(&self) -> Vec<T> {
         self.as_slice().to_vec()
     }
 
     #[cfg(feature = "alloc")]
+    /// Clones the contents of the array section into a boxed slice.
     pub fn to_boxed_slice(&self) -> Box<[T]> {
         self.as_slice().into()
     }
