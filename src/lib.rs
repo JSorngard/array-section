@@ -256,6 +256,12 @@ impl<const N: usize, T> ArraySection<T, N> {
         ArraySectionIter::new(self.as_slice().iter())
     }
 
+    /// Returns a mutable iterator over the array section.
+    #[inline]
+    pub fn iter_mut(&mut self) -> ArraySectionIterMut<'_, T> {
+        ArraySectionIterMut::new(self.as_slice_mut().iter_mut())
+    }
+
     #[cfg(any(feature = "alloc", feature = "std"))]
     /// Converts the array section into a vector.
     ///
@@ -482,6 +488,80 @@ impl<'a, const N: usize, T> IntoIterator for &'a ArraySection<T, N> {
     fn into_iter(self) -> Self::IntoIter {
         ArraySectionIter::new(self.as_slice().iter())
     }
+}
+
+impl<'a, const N: usize, T> IntoIterator for &'a mut ArraySection<T, N> {
+    type IntoIter = ArraySectionIter<'a, T>;
+    type Item = <ArraySectionIter<'a, T> as Iterator>::Item;
+    #[inline]
+    fn into_iter(self) -> Self::IntoIter {
+        ArraySectionIter::new(self.as_slice().iter())
+    }
+}
+
+pub use array_section_iter_mut::ArraySectionIterMut;
+mod array_section_iter_mut {
+    use super::FusedIterator;
+
+    /// Mutable borrowing iterator created by the [`ArraySection::iter_mut()`](super::ArraySection::iter_mut()) function, see it for more information.
+    #[derive(Debug)]
+    pub struct ArraySectionIterMut<'a, T>(core::slice::IterMut<'a, T>);
+
+    impl<'a, T> ArraySectionIterMut<'a, T> {
+        #[inline]
+        pub(crate) const fn new(iter: core::slice::IterMut<'a, T>) -> Self {
+            Self(iter)
+        }
+    }
+
+    impl<'a, T> Iterator for ArraySectionIterMut<'a, T> {
+        type Item = &'a mut T;
+        #[inline]
+        fn next(&mut self) -> Option<Self::Item> {
+            self.0.next()
+        }
+
+        #[inline]
+        fn nth(&mut self, n: usize) -> Option<Self::Item> {
+            self.0.nth(n)
+        }
+
+        #[inline]
+        fn last(self) -> Option<Self::Item> {
+            self.0.last()
+        }
+
+        #[inline]
+        fn count(self) -> usize {
+            self.0.count()
+        }
+
+        #[inline]
+        fn size_hint(&self) -> (usize, Option<usize>) {
+            self.0.size_hint()
+        }
+    }
+
+    impl<'a, T> DoubleEndedIterator for ArraySectionIterMut<'a, T> {
+        #[inline]
+        fn next_back(&mut self) -> Option<Self::Item> {
+            self.0.next_back()
+        }
+
+        #[inline]
+        fn nth_back(&mut self, n: usize) -> Option<Self::Item> {
+            self.0.nth_back(n)
+        }
+    }
+
+    impl<'a, T> ExactSizeIterator for ArraySectionIterMut<'a, T> {
+        #[inline]
+        fn len(&self) -> usize {
+            self.0.len()
+        }
+    }
+
+    impl<'a, T> FusedIterator for ArraySectionIterMut<'a, T> {}
 }
 
 pub use array_section_iter::ArraySectionIter;
