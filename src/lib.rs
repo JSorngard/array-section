@@ -268,18 +268,7 @@ impl<const N: usize, T> ArraySection<T, N> {
     /// assert_eq!(section.into_vec(), vec![1, 2, 3]);
     /// ```
     pub fn into_vec(self) -> Vec<T> {
-        let visible_range = self.start()..self.end();
-        self.into_full_array()
-            .into_iter()
-            .enumerate()
-            .filter_map(|(i, item)| {
-                if visible_range.contains(&i) {
-                    Some(item)
-                } else {
-                    None
-                }
-            })
-            .collect()
+        self.into_iter().collect()
     }
 
     #[cfg(feature = "alloc")]
