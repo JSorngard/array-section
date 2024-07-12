@@ -256,7 +256,7 @@ impl<const N: usize, T> ArraySection<T, N> {
         ArraySectionIter::new(self.as_slice().iter())
     }
 
-    #[cfg(feature = "alloc")]
+    #[cfg(any(feature = "alloc", feature = "std"))]
     /// Converts the array section into a vector.
     ///
     /// # Example
@@ -273,7 +273,7 @@ impl<const N: usize, T> ArraySection<T, N> {
         self.into_iter().collect()
     }
 
-    #[cfg(feature = "alloc")]
+    #[cfg(any(feature = "alloc", feature = "std"))]
     /// Converts the array section into a boxed slice.
     ///
     /// # Example
@@ -295,14 +295,14 @@ impl<const N: usize, T> ArraySection<T, N> {
 }
 
 impl<T: Clone, const N: usize> ArraySection<T, N> {
-    #[cfg(feature = "alloc")]
+    #[cfg(any(feature = "alloc", feature = "std"))]
     /// Clones the contents of the array section into a vector.
     #[inline]
     pub fn to_vec(&self) -> Vec<T> {
         self.as_slice().to_vec()
     }
 
-    #[cfg(feature = "alloc")]
+    #[cfg(any(feature = "alloc", feature = "std"))]
     /// Clones the contents of the array section into a boxed slice.
     #[inline]
     pub fn to_boxed_slice(&self) -> Box<[T]> {
