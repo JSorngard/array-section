@@ -37,6 +37,9 @@ use core::{
     slice::SliceIndex,
 };
 
+#[cfg(feature = "std")]
+use std::backtrace::Backtrace;
+
 #[cfg(all(feature = "alloc", not(feature = "std")))]
 extern crate alloc;
 #[cfg(all(feature = "alloc", not(feature = "std")))]
@@ -346,14 +349,36 @@ impl<T: Copy, const N: usize> ArraySection<T, N> {
 /// Returned when a `TryFrom` conversion of an [`ArraySection`] into an array fails.
 ///
 /// Contains the original `ArraySection`, which can be retrieved via the [`array_section`](TryFromArraySectionError::array_section) function.
-#[derive(Debug, Clone, Copy)]
-pub struct TryFromArraySectionError<T, const N: usize>(ArraySection<T, N>);
+#[derive(Debug)]
+pub struct TryFromArraySectionError<T, const N: usize> {
+    section: ArraySection<T, N>,
+    #[cfg(feature = "std")]
+    backtrace: Backtrace,
+}
 
 impl<T, const N: usize> TryFromArraySectionError<T, N> {
     /// Returns the original [`ArraySection`].
     #[inline]
     pub fn array_section(self) -> ArraySection<T, N> {
-        self.0
+        self.section
+    }
+
+    #[inline]
+    pub(crate) fn new(section: ArraySection<T, N>) -> Self {
+        Self {
+            section,
+            #[cfg(feature = "std")]
+            backtrace: Backtrace::capture(),
+        }
+    }
+
+    #[cfg(feature = "std")]
+    /// Returns a backtrace to where the error was created.
+    ///
+    /// See [`Backtrace::capture`] for more information about how to make it display more information when printed.
+    #[inline]
+    pub fn backtrace(&self) -> &Backtrace {
+        &self.backtrace
     }
 }
 
@@ -370,7 +395,7 @@ impl<T: core::fmt::Debug, const N: usize> std::error::Error for TryFromArraySect
 impl<T, const N: usize> From<TryFromArraySectionError<T, N>> for ArraySection<T, N> {
     #[inline]
     fn from(value: TryFromArraySectionError<T, N>) -> Self {
-        value.0
+        value.section
     }
 }
 
@@ -383,7 +408,7 @@ impl<const N: usize, T> TryFrom<ArraySection<T, N>> for [T; N] {
         if value.section_is_full_array() {
             Ok(value.array)
         } else {
-            Err(TryFromArraySectionError(value))
+            Err(TryFromArraySectionError::new(value))
         }
     }
 }
