@@ -28,7 +28,7 @@ assert_eq!(squares_smaller_than::<10>(16), [0, 1, 4, 9]);
 
 ## Feature flags
 
-`std`: derives the `Error` trait from the standard library for the error types.
+`std`: derives the `Error` trait from the standard library for the error types. Enables `alloc`.
 
 `alloc`: enables conversion of the array section into `Vec`s and `Box`ed slices.
 

@@ -22,7 +22,7 @@
 //!
 //! # Feature flags
 //!
-//! `std`: derives the [`Error`](std::error::Error) trait from the standard library for the [`TryFromArraySectionError`] type.
+//! `std`: derives the [`Error`](std::error::Error) trait from the standard library for the [`TryFromArraySectionError`] type. Enables `alloc`.
 //!
 //! `alloc`: enables conversion of the section into [`Vec`]s and [`Box`]ed slices.
 
