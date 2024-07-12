@@ -255,6 +255,58 @@ impl<const N: usize, T> ArraySection<T, N> {
     pub fn iter(&self) -> ArraySectionIter<'_, T> {
         ArraySectionIter::new(self.as_slice().iter())
     }
+
+    #[cfg(feature = "alloc")]
+    /// Converts the array section into a vector.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use array_section::ArraySection;
+    /// let section = ArraySection::new([0, 0, 1, 2, 3, 0, 0], 2..5);
+    ///
+    /// assert_eq!(section.into_vec(), vec![1, 2, 3]);
+    /// ```
+    pub fn into_vec(self) -> Vec<T> {
+        let visible_range = self.start()..self.end();
+        let mut out = Vec::with_capacity(self.len());
+        for (i, item) in self.into_full_array().into_iter().enumerate() {
+            if visible_range.contains(&i) {
+                out.push(item);
+            }
+        }
+        out
+    }
+
+    #[cfg(feature = "alloc")]
+    /// Converts the array section into a boxed slice.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use array_section::ArraySection;
+    /// let section = ArraySection::new([0, 0, 1, 2, 3, 0, 0], 2..5);
+    ///
+    /// assert_eq!(
+    ///     section.into_boxed_slice(),
+    ///     Box::new([1, 2, 3]) as Box<[i32]>
+    /// );
+    /// ```
+    pub fn into_boxed_slice(self) -> Box<[T]> {
+        self.into_vec().into_boxed_slice()
+    }
+}
+
+impl<T: Clone, const N: usize> ArraySection<T, N> {
+    #[cfg(feature = "alloc")]
+    pub fn to_vec(&self) -> Vec<T> {
+        self.as_slice().to_vec()
+    }
+
+    #[cfg(feature = "alloc")]
+    pub fn to_boxed_slice(&self) -> Box<[T]> {
+        self.as_slice().into()
+    }
 }
 
 #[cfg(any(feature = "alloc", feature = "std"))]
