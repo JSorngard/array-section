@@ -263,6 +263,7 @@ impl<const N: usize, T> ArraySection<T, N> {
     ///
     /// ```
     /// # use array_section::ArraySection;
+    /// //                                     v  v  v
     /// let section = ArraySection::new([0, 0, 1, 2, 3, 0, 0], 2..5);
     ///
     /// assert_eq!(section.into_vec(), vec![1, 2, 3]);
@@ -278,6 +279,7 @@ impl<const N: usize, T> ArraySection<T, N> {
     ///
     /// ```
     /// # use array_section::ArraySection;
+    /// //                                     v  v  v
     /// let section = ArraySection::new([0, 0, 1, 2, 3, 0, 0], 2..5);
     ///
     /// assert_eq!(
