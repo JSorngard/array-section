@@ -269,13 +269,17 @@ impl<const N: usize, T> ArraySection<T, N> {
     /// ```
     pub fn into_vec(self) -> Vec<T> {
         let visible_range = self.start()..self.end();
-        let mut out = Vec::with_capacity(self.len());
-        for (i, item) in self.into_full_array().into_iter().enumerate() {
-            if visible_range.contains(&i) {
-                out.push(item);
-            }
-        }
-        out
+        self.into_full_array()
+            .into_iter()
+            .enumerate()
+            .filter_map(|(i, item)| {
+                if visible_range.contains(&i) {
+                    Some(item)
+                } else {
+                    None
+                }
+            })
+            .collect()
     }
 
     #[cfg(feature = "alloc")]
