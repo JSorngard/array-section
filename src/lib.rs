@@ -3,7 +3,7 @@
 //! This can be useful in const functions that wish to return an array of size `N`,
 //! but with some elements potentially unused.
 //!
-//! `#![no_std]` compatible
+//! The crate is `no_std` compatible.
 //!
 //! ```
 //! # use array_section::ArraySection;

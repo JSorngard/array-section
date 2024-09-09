@@ -10,7 +10,7 @@ This crate defines a type backed by an array where only a (contiguous) subsectio
 This can be useful in const functions that wish to return an array of size `N`,
 but with some elements potentially unused.
 
-`#![no_std]` compatible
+The crate is `no_std` compatible.
 
  ```rust
 /// Returns an array of the square numbers smaller than both x and N.
