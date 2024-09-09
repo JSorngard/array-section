@@ -23,7 +23,7 @@
 //! # Feature flags
 //!
 //! `std`: lets the error type provide a [`Backtrace`]. 
-//! When this feature is disabled the crate is `no_std`. 
+//! When this feature is disabled the crate is `no_std` compatible. 
 //! Enables the `alloc` feature.
 //!
 //! `alloc`: enables conversion of the section into [`Vec`]s and [`Box`]ed slices.

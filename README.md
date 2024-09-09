@@ -29,7 +29,7 @@ assert_eq!(squares_smaller_than::<10>(16), [0, 1, 4, 9]);
 ## Feature flags
 
 `std`: lets the error type provide a [`Backtrace`](https://doc.rust-lang.org/std/backtrace/struct.Backtrace.html).
-When this feature is disabled the crate is `no_std`. Enables the `alloc` feature.
+When this feature is disabled the crate is `no_std` compatible. Enables the `alloc` feature.
 
 `alloc`: enables conversion of the array section into `Vec`s and `Box`ed slices.
 

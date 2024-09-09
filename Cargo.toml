@@ -12,7 +12,7 @@ repository = "https://github.com/JSorngard/array-section"
 [dependencies]
 
 [features]
-# Lets the error type provide a [`Backtrace`](https://doc.rust-lang.org/std/backtrace/struct.Backtrace.html). When this feature is disabled the crate is `no_std`. Enables the `alloc` feature.
+# Lets the error type provide a [`Backtrace`](https://doc.rust-lang.org/std/backtrace/struct.Backtrace.html). When this feature is disabled the crate is `no_std` compatible. Enables the `alloc` feature.
 std = ["alloc"]
 # Enables conversion of the array section into [`Vec`](https://doc.rust-lang.org/std/vec/struct.Vec.html)s and [`Box`](https://doc.rust-lang.org/std/boxed/struct.Box.html)ed slices.
 alloc = []
