@@ -22,7 +22,9 @@
 //!
 //! # Feature flags
 //!
-//! `std`: derives the [`Error`](std::error::Error) trait from the standard library for the [`TryFromArraySectionError`] type. Enables `alloc`.
+//! `std`: lets the error type provide a [`Backtrace`]. 
+//! When this feature is disabled the crate is `no_std`. 
+//! Enables the `alloc` feature.
 //!
 //! `alloc`: enables conversion of the section into [`Vec`]s and [`Box`]ed slices.
 
@@ -389,8 +391,7 @@ impl<T, const N: usize> core::fmt::Display for TryFromArraySectionError<T, N> {
     }
 }
 
-#[cfg(feature = "std")]
-impl<T: core::fmt::Debug, const N: usize> std::error::Error for TryFromArraySectionError<T, N> {}
+impl<T: core::fmt::Debug, const N: usize> core::error::Error for TryFromArraySectionError<T, N> {}
 
 impl<T, const N: usize> From<TryFromArraySectionError<T, N>> for ArraySection<T, N> {
     #[inline]
