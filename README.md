@@ -2,8 +2,8 @@
 
 [![Crates.io Version](https://img.shields.io/crates/v/array_section?logo=rust)](https://crates.io/crates/array-section)
 [![docs.rs](https://img.shields.io/docsrs/array-section?logo=docs.rs)](https://docs.rs/array-section/latest/array_section/)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/JSorngard/array-section/rust.yml?logo=github&label=CI)](https://github.com/JSorngard/array-section/actions/workflows/rust.yml)
 [![Static Badge](https://img.shields.io/badge/github-JSorngard%2Farray--section-8da0cb?logo=github)](https://github.com/JSorngard/array-section)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/JSorngard/array-section/rust.yml?logo=github&label=CI)](https://github.com/JSorngard/array-section/actions/workflows/rust.yml)
 
 When you want to return a buffer of unknown size (but smaller than some limit) from/in a const context.
 This crate defines a type backed by an array where only a (contiguous) subsection of the array may be viewed.
