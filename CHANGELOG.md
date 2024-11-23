@@ -2,6 +2,10 @@
 
 This document contains the changes to the crate since version 0.1.9.
 
+## 0.2.3
+
+- Shink license section in README.
+
 ## 0.2.2
 
 - Set `rust-version` to 1.81.0 since if we don't crates.io sets it to 1.56.0 by default,
