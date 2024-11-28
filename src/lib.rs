@@ -568,7 +568,7 @@ mod array_section_iter_mut {
         }
     }
 
-    impl<'a, T> DoubleEndedIterator for ArraySectionIterMut<'a, T> {
+    impl<T> DoubleEndedIterator for ArraySectionIterMut<'_, T> {
         #[inline]
         fn next_back(&mut self) -> Option<Self::Item> {
             self.0.next_back()
@@ -580,14 +580,14 @@ mod array_section_iter_mut {
         }
     }
 
-    impl<'a, T> ExactSizeIterator for ArraySectionIterMut<'a, T> {
+    impl<T> ExactSizeIterator for ArraySectionIterMut<'_, T> {
         #[inline]
         fn len(&self) -> usize {
             self.0.len()
         }
     }
 
-    impl<'a, T> FusedIterator for ArraySectionIterMut<'a, T> {}
+    impl<T> FusedIterator for ArraySectionIterMut<'_, T> {}
 }
 
 pub use array_section_iter::ArraySectionIter;
@@ -632,7 +632,7 @@ mod array_section_iter {
             self.0.count()
         }
     }
-    impl<'a, T> DoubleEndedIterator for ArraySectionIter<'a, T> {
+    impl<T> DoubleEndedIterator for ArraySectionIter<'_, T> {
         #[inline]
         fn next_back(&mut self) -> Option<Self::Item> {
             self.0.next_back()
@@ -643,12 +643,12 @@ mod array_section_iter {
             self.0.nth_back(n)
         }
     }
-    impl<'a, T> ExactSizeIterator for ArraySectionIter<'a, T> {
+    impl<T> ExactSizeIterator for ArraySectionIter<'_, T> {
         fn len(&self) -> usize {
             self.0.len()
         }
     }
-    impl<'a, T> FusedIterator for ArraySectionIter<'a, T> {}
+    impl<T> FusedIterator for ArraySectionIter<'_, T> {}
 }
 
 pub use array_section_into_iter::ArraySectionIntoIter;
